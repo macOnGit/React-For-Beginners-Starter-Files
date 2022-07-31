@@ -1,7 +1,6 @@
 {
   "name": "cotd",
   "version": "0.0.3",
-  "private": true,
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/eslint-parser": "^7.18.9",
