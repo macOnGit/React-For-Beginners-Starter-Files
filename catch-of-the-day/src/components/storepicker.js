@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { getFunName } from '../helpers';
 
@@ -6,9 +6,10 @@ class StorePicker extends React.Component {
   myInput = React.createRef();
 
   goToStore = (event) => {
+    const { history } = this.props;
     event.preventDefault();
     const storeName = this.myInput.current.value;
-    this.props.history.push(`/store/${storeName}`);
+    history.push(`/store/${storeName}`);
   };
 
   render() {
