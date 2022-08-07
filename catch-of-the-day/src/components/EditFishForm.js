@@ -1,10 +1,22 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-console */
-/* eslint-disable react/prop-types */
+/* eslint-disable react/static-property-placement */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import Proptypes from 'prop-types';
 
 class EditFishForm extends React.Component {
+  static propTypes = {
+    fish: Proptypes.shape({
+      image: Proptypes.string,
+      name: Proptypes.string,
+      desc: Proptypes.string,
+      status: Proptypes.string,
+      price: Proptypes.number,
+    }),
+    updateFish: Proptypes.func,
+    deleteFish: Proptypes.func,
+    index: Proptypes.string,
+  };
+
   handleChange = (event) => {
     const updatedFish = {
       ...this.props.fish,
@@ -24,7 +36,9 @@ class EditFishForm extends React.Component {
         </select>
         <textarea name="desc" onChange={this.handleChange} value={this.props.fish.desc} />
         <input type="text" name="image" onChange={this.handleChange} value={this.props.fish.image} />
-        <button onClick={() => this.props.deleteFish(this.props.index)}>Remove Fish</button>
+        <button type="submit" onClick={() => this.props.deleteFish(this.props.index)}>
+          Remove Fish
+        </button>
       </div>
     );
   }

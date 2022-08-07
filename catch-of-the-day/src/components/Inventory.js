@@ -1,11 +1,19 @@
+/* eslint-disable react/static-property-placement */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import Proptypes from 'prop-types';
 import AddFishForm from './AddFishForm';
 import EditFishForm from './EditFishForm';
 
 class Inventory extends React.Component {
+  static propTypes = {
+    updateFish: Proptypes.func,
+    deleteFish: Proptypes.func,
+    fishes: Proptypes.object,
+    addFish: Proptypes.func,
+    loadSampleFishes: Proptypes.func,
+  };
+
   render() {
     const { addFish, loadSampleFishes } = this.props;
     return (
@@ -21,7 +29,9 @@ class Inventory extends React.Component {
           />
         ))}
         <AddFishForm addFish={addFish} />
-        <button onClick={loadSampleFishes}>Load Sample Fishes</button>
+        <button type="submit" onClick={loadSampleFishes}>
+          Load Sample Fishes
+        </button>
       </div>
     );
   }

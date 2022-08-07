@@ -1,13 +1,26 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/prop-types */
+/* eslint-disable react/static-property-placement */
 import React from 'react';
+import Proptypes from 'prop-types';
 import { formatPrice } from '../helpers';
 
 class Fish extends React.Component {
+  static propTypes = {
+    details: Proptypes.shape({
+      image: Proptypes.string,
+      name: Proptypes.string,
+      desc: Proptypes.string,
+      status: Proptypes.string,
+      price: Proptypes.number,
+    }),
+    addToOrder: Proptypes.func,
+    index: Proptypes.string,
+  };
+
   render() {
     const {
       details: { image, name, price, desc, status },
+      addToOrder,
+      index,
     } = this.props;
     const isAvailable = status === 'available';
     return (
@@ -18,7 +31,7 @@ class Fish extends React.Component {
           <span className="price">{formatPrice(price)}</span>
         </h3>
         <p>{desc}</p>
-        <button disabled={!isAvailable} onClick={() => this.props.addToOrder(this.props.index)}>
+        <button type="submit" disabled={!isAvailable} onClick={() => addToOrder(index)}>
           {isAvailable ? 'Add To Order' : 'Sold out!'}
         </button>
       </li>

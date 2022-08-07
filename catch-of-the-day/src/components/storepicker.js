@@ -1,9 +1,14 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/static-property-placement */
 import React from 'react';
+import Proptypes from 'prop-types';
 import { getFunName } from '../helpers';
 
 class StorePicker extends React.Component {
   myInput = React.createRef();
+
+  static propTypes = {
+    history: Proptypes.object,
+  };
 
   goToStore = (event) => {
     const { history } = this.props;

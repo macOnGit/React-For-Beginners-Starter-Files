@@ -1,7 +1,12 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/static-property-placement */
 import React from 'react';
+import Proptypes from 'prop-types';
 
 class AddFishForm extends React.Component {
+  static propTypes = {
+    addFish: Proptypes.func,
+  };
+
   nameRef = React.createRef();
 
   priceRef = React.createRef();

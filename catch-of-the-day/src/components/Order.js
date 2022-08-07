@@ -1,14 +1,20 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/static-property-placement */
 import React from 'react';
+import Proptypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { formatPrice } from '../helpers';
 
 class Order extends React.Component {
+  static propTypes = {
+    fishes: Proptypes.object,
+    order: Proptypes.object,
+    removeFromOrder: Proptypes.func,
+  };
+
   renderOrder = (key) => {
-    const fish = this.props.fishes[key];
-    const count = this.props.order[key];
+    const { fishes, order, removeFromOrder } = this.props;
+    const fish = fishes[key];
+    const count = order[key];
     const isAvailable = fish && fish.status === 'available';
     const transitionsOptions = {
       classNames: 'order',
@@ -24,17 +30,19 @@ class Order extends React.Component {
       );
     }
     return (
-      <CSSTransition classNames="order" key={key} timeout={{ enter: 500, exit: 500 }}>
+      <CSSTransition {...transitionsOptions}>
         <li key={key}>
           <span>
             <TransitionGroup component="span" className="count">
-              <CSSTransition {...transitionsOptions}>
+              <CSSTransition classNames="count" key={count} timeout={{ enter: 500, exit: 500 }}>
                 <span>{count}</span>
               </CSSTransition>
             </TransitionGroup>
             lbs {fish.name}
             {formatPrice(count * fish.price)}
-            <button onClick={() => this.props.removeFromOrder(key)}>&times;</button>
+            <button type="submit" onClick={() => removeFromOrder(key)}>
+              &times;
+            </button>
           </span>
         </li>
       </CSSTransition>
@@ -42,10 +50,11 @@ class Order extends React.Component {
   };
 
   render() {
-    const orderIds = Object.keys(this.props.order);
+    const { fishes, order } = this.props;
+    const orderIds = Object.keys(order);
     const total = orderIds.reduce((prevTotal, key) => {
-      const fish = this.props.fishes[key];
-      const count = this.props.order[key];
+      const fish = fishes[key];
+      const count = order[key];
       const isAvailable = fish && fish.status === 'available';
       if (isAvailable) {
         return prevTotal + count * fish.price;

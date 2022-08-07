@@ -1,11 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-console */
-/* eslint-disable react/no-unused-class-component-methods */
+/* eslint-disable react/static-property-placement */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-unused-state */
 /* eslint-disable react/state-in-constructor */
 import React from 'react';
+import Proptypes from 'prop-types';
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
@@ -14,6 +12,10 @@ import Fish from './Fish';
 import base from '../base';
 
 class App extends React.Component {
+  static propTypes = {
+    match: Proptypes.object,
+  };
+
   state = {
     fishes: {},
     order: {},
